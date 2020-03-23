@@ -24,7 +24,11 @@ app.get('/api/query', (req, res) => {
 	let ret;
 
     connection.query('SELECT 1 + 3 AS solution', (error, results) => {
-        if (error) throw error;
+        if (error) { 
+            res.status(400).send({
+                message: 'error'
+            });
+        }
         ret = results[0].solution;
         console.log('The solution is: ', results[0].solution);
     });
