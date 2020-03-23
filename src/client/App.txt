@@ -1,0 +1,63 @@
+import React, { Component } from 'react';
+import './app.css';
+import ReactImage from './react.png';
+
+export default class App extends Component {
+  state = { username: null };
+
+  componentDidMount() {
+    fetch('/api/query')
+      .then(res => res.json())
+      .then((user) => {
+        console.log(user);
+        this.setState({ username: user.username });
+      });
+  }
+
+  renderLanding() {
+    return(
+      <div class="container">
+        <Header style="top:0px;" style="width:100%;" style="height: 10%;"/>
+        <Navigation/>
+      </div>
+    );
+
+  }
+
+  render() {
+    const { username } = this.state;
+    return (
+      /*
+      <div class="container">
+        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
+        <img src={ReactImage} alt="react" />
+      </div> 
+      */
+      <div class="landing">
+        {this.renderLanding()}
+      </div>
+    );
+  }
+}
+
+class Header extends Component {
+  render() {
+    return (
+      <div class = "container">
+        <img src={ReactImage} alt="headerImage" style="width:100%;"> </img>   /* change image */
+        <div class="logo-text">Chow Now</div>
+      </div>  
+    );
+  }
+}
+
+class Navigation extends Component {
+  render () {
+    return (
+      <div class="container" style="border: 3px solid blue">
+        <div class="nav-header">Navigation</div>
+        <button type="button">Find A Recipe</button>
+      </div>
+    );
+  }
+}
