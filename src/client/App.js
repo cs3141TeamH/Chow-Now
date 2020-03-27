@@ -3,12 +3,12 @@ import './app.css';
 import ReactImage from './react.png';
 
  class App extends Component {
-
   constructor(props) {
     super(props);
-    this.state={username: null};
+    this.state={ username:null, isLandingPage:true, isLookupPage:false };
+    this.handleLandingClick = this.handleLandingClick.bind(this);
+    this.handleLookupClick = this.handleLookupClick.bind(this);   
   }
-
   componentDidMount() {
     fetch('/api/query')
       .then(res => res.json())
@@ -17,35 +17,40 @@ import ReactImage from './react.png';
         this.setState({ username: user.username });
       });
   }
-
+  handleLandingClick() {
+    this.setState({ isLandingPage: true, isLookupPage: false});
+  }
+  handleLookupClick() {
+    this.setState({isLandingPage: false, isLookupPage: true});
+  }
   render() {
     const username = this.state.username;
+    const isLandingPage = this.state.isLandingPage;
+    const isLookupPage = this.state.isLookupPage;
+    let form;
+    if (isLandingPage) {
+      form = <LandingPage onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick}/>;
+    } else if (isLookupPage) {
+      form = <LookupPage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick}/>;
+    }
     return (
-      /*
-      <div class="container">
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
-      </div> 
-      */
       <div>
-        <Landing/>
+        {form}
       </div>
     );
   }
 }
-
-class Landing extends Component {
+class LandingPage extends Component {
   render() {
     return(
       <div>
         <Header/>
-        <Navigation/>
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick}/>
         <Footer/>
       </div>
     );
   }
 }
-
 class Header extends Component {
   render() {
     return (
@@ -56,21 +61,19 @@ class Header extends Component {
     );
   }
 }
-
 class Navigation extends Component {
   render () {
     return (
       <div class="navContainer">
         <div class="navHeader">Navigation</div>
         <div class="navButtons">
-          <button type="button" class="navButton">Find A Recipe</button>
-          <button type="button" class="navButton">Another Button</button>
+          <button class="navButton" onClick={this.props.onLandClick}>Home</button>
+          <button class="navButton" onClick={this.props.onLookClick}>Find A Recipe</button>
         </div>
       </div>
     );
   }
 }
-
 class Footer extends Component{
   render() {
     return (
@@ -84,5 +87,14 @@ class Footer extends Component{
     );
   }
 }
-
+class LookupPage extends Component {
+  render () {
+    return (
+      <div>
+        <h2>This is the lookup page</h2>
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick}/> 
+      </div>
+    );
+  }
+}
 export default App;

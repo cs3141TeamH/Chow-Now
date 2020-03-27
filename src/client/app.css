@@ -2,15 +2,12 @@ h1 {
   color: rgb(209, 46, 25);
   text-align: center;
 }
-
 body {
   margin: auto;
 }
-
 .logoText {
   margin-top: 12px;
 }
-
 .headContainer {
   position: absolute;
   height: 64px;
