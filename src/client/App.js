@@ -5,9 +5,10 @@ import ReactImage from './react.png';
  class App extends Component {
   constructor(props) {
     super(props);
-    this.state={ username:null, isLandingPage:true, isLookupPage:false };
+    this.state={ username:null, isLandingPage:true, isLookupPage:false, isAboutPage:false };
     this.handleLandingClick = this.handleLandingClick.bind(this);
-    this.handleLookupClick = this.handleLookupClick.bind(this);   
+    this.handleLookupClick = this.handleLookupClick.bind(this);  
+    this.handleAboutClick = this.handleAboutClick.bind(this); 
   }
   componentDidMount() {
     fetch('/api/query')
@@ -18,20 +19,26 @@ import ReactImage from './react.png';
       });
   }
   handleLandingClick() {
-    this.setState({ isLandingPage: true, isLookupPage: false});
+    this.setState({ isLandingPage: true, isLookupPage: false, isAboutPage:false});
   }
   handleLookupClick() {
-    this.setState({isLandingPage: false, isLookupPage: true});
+    this.setState({isLandingPage: false, isLookupPage: true, isAboutPage:false});
+  }
+  handleAboutClick() {
+    this.setState({isLandingPage: false, isLookupPage: false, isAboutPage:true});
   }
   render() {
     const username = this.state.username;
     const isLandingPage = this.state.isLandingPage;
     const isLookupPage = this.state.isLookupPage;
+    const isAboutPage = this.state.isAboutPage;
     let form;
     if (isLandingPage) {
-      form = <LandingPage onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick}/>;
+      form = <LandingPage onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
     } else if (isLookupPage) {
-      form = <LookupPage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick}/>;
+      form = <LookupPage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
+    } else if (isAboutPage) {
+      form = <AboutPage   onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
     }
     return (
       <div>
@@ -45,10 +52,19 @@ class LandingPage extends Component {
     return(
       <div>
         <Header/>
-        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick}/>
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/>
         <Footer/>
       </div>
     );
+  }
+}
+class AboutPage extends Component {
+  render() {
+    return(
+      <div class="aboutText"> some text gang shit boonk
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/> 
+      </div>
+   );
   }
 }
 class Header extends Component {
@@ -69,6 +85,7 @@ class Navigation extends Component {
         <div class="navButtons">
           <button class="navButton" onClick={this.props.onLandClick}>Home</button>
           <button class="navButton" onClick={this.props.onLookClick}>Find A Recipe</button>
+          <button class="navButton" onClick={this.props.onAboutClick}>About</button>
         </div>
       </div>
     );
@@ -92,7 +109,7 @@ class LookupPage extends Component {
     return (
       <div>
         <h2>This is the lookup page</h2>
-        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick}/> 
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/> 
       </div>
     );
   }

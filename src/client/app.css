@@ -47,3 +47,10 @@ body {
   display: flex;
   justify-content: space-evenly;
 }
+.aboutText{
+  text-align: center;
+  right: 50%;
+  top: 50%;
+  border: 7px solid gold;
+  height: 128px;
+}
