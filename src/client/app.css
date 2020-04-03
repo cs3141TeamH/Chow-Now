@@ -9,7 +9,7 @@ body {
   margin-top: 12px;
 }
 .headContainer {
-  position: absolute;
+  position: fixed;
   height: 64px;
   width: 100%;
   background-color: rgb(9, 218, 103);
@@ -53,4 +53,19 @@ body {
   top: 50%;
   border: 7px solid gold;
   height: 128px;
+}
+.checkboxesRow{
+  background-color: lightgrey;
+  margin: 15px;
+}
+.lookupBody{
+  position: absolute;
+  top: 128px;
+  width: 70%;
+  left: 32px;
+}
+.checkboxes{
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px;
 }

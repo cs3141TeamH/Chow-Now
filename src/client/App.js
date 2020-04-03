@@ -5,7 +5,10 @@ import ReactImage from './react.png';
  class App extends Component {
   constructor(props) {
     super(props);
-    this.state={ username:null, isLandingPage:true, isLookupPage:false, isAboutPage:false };
+    this.state={ username:null,
+      isLandingPage:true,
+      isLookupPage:false,
+      isAboutPage:false,};
     this.handleLandingClick = this.handleLandingClick.bind(this);
     this.handleLookupClick = this.handleLookupClick.bind(this);  
     this.handleAboutClick = this.handleAboutClick.bind(this); 
@@ -61,7 +64,7 @@ class LandingPage extends Component {
 class AboutPage extends Component {
   render() {
     return(
-      <div class="aboutText"> some text gang shit boonk
+      <div class="aboutText"> some text
         <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/> 
       </div>
    );
@@ -108,9 +111,40 @@ class LookupPage extends Component {
   render () {
     return (
       <div>
-        <h2>This is the lookup page</h2>
-        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/> 
+        <Header/>
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/>
+        <Footer/>
+        <div class="lookupBody">
+          <div class="checkboxesRow">
+            <h2 class="navHeader">Include ingredients:</h2>
+              <span class="checkboxes">
+                <Checkboxes title="things1"/>
+                <Checkboxes title="things2"/>
+              </span>
+          </div>
+          <div class="checkboxesRow">
+            <h2 class="navHeader">Exclude ingredients:</h2>
+              <span class="checkboxes">
+                <Checkboxes title="things1"/>
+                <Checkboxes title="things2"/>
+              </span>
+          </div>
+        </div>
       </div>
+    );
+  }
+}
+class Checkboxes extends Component {
+  render() {
+    return(
+    <div>  {this.props.title}
+      <form>
+        <input type="checkbox" id="thing1" name="thing1" value="food1"/>
+        <label for="thing1">Thing1</label> <br/>
+        <input type="checkbox" id="thing2" name="thing2" value="food2"/>
+        <label for="thing2">Thing2</label>
+      </form>
+    </div>
     );
   }
 }
