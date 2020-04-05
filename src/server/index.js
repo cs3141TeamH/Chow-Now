@@ -4,11 +4,20 @@ const mysql = require('mysql');
 
 const app = express();
 
-const connection = mysql.createConnection({
-  host: 'classdb.it.mtu.edu',
-  user: 'username',
-  password: 'password',
-  database: 'username'
+var connection = mysql.createConnection({
+    host     : 'chownow.cvbdf448eti1.us-east-1.rds.amazonaws.com',
+    user     : '',
+    password : '',
+    port     : '3306'
+});
+  
+connection.connect(function(err) {
+    if (err) {
+        console.error('Database connection failed: ' + err.stack);
+        return;
+    }
+
+    console.log('Connected to database.');
 });
 
 app.use(express.static('dist'));
@@ -19,12 +28,13 @@ app.get('/api/getUsername', (req, res) => {
 });
 
 app.get('/api/query', (req, res) => {
-    connection.connect();
-
-	let ret;
+    let ret;
 
     connection.query('SELECT 1 + 3 AS solution', (error, results) => {
-        if (error) throw error;
+        if (error) {
+            console.log(error);
+            throw error;
+        }
         ret = results[0].solution;
         console.log('The solution is: ', results[0].solution);
     });

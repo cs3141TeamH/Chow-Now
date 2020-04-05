@@ -21,6 +21,7 @@ import ReactImage from './react.png';
         this.setState({ username: user.username });
       });
   }
+   
   handleLandingClick() {
     this.setState({ isLandingPage: true, isLookupPage: false, isAboutPage:false});
   }
