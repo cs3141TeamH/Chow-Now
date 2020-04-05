@@ -9,7 +9,7 @@ body {
   margin-top: 12px;
 }
 .headContainer {
-  position: fixed;
+  position: absolute;
   height: 64px;
   width: 100%;
   background-color: rgb(9, 218, 103);
