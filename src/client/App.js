@@ -14,12 +14,23 @@ export default class App extends Component {
       });
   }
 
+  shoot() {
+    fetch('/api/query')
+      .then(res => res.json())
+      .then((user) => {
+        console.log(user);
+        this.setState({ username: user.username });
+      });
+  }
+
   render() {
     const { username } = this.state;
     return (
       <div>
         {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
         <img src={ReactImage} alt="react" />
+
+        <button onClick={this.shoot}>Take the Shot!</button>
       </div>
     );
   }
