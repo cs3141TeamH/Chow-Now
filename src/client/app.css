@@ -47,12 +47,24 @@ body {
   display: flex;
   justify-content: space-evenly;
 }
+.logoImage{
+  margin-top: 25px;
+  margin-left: 200px;
+}
 .aboutText{
   text-align: center;
   right: 50%;
-  top: 50%;
+  padding-top: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 50px;
+  margin-left: -60px;
+  margin-right: 200px;
+  top: 3000px;
+  width: 800px;
+  background-color: whitesmoke;
   border: 7px solid gold;
-  height: 128px;
+  height: 125px;
 }
 .checkboxesRow{
   background-color: lightgrey;
