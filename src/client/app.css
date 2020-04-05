@@ -2,17 +2,14 @@ h1 {
   color: rgb(209, 46, 25);
   text-align: center;
 }
-
 body {
   margin: auto;
 }
-
 .logoText {
   margin-top: 12px;
 }
-
 .headContainer {
-  position: absolute;
+  position: fixed;
   height: 64px;
   width: 100%;
   background-color: rgb(9, 218, 103);
@@ -49,4 +46,37 @@ body {
   margin-top: 6px;
   display: flex;
   justify-content: space-evenly;
+}
+.logoImage{
+  margin-top: 100px;
+}
+.aboutText{
+  text-align: center;
+  right: 50%;
+  padding-top: 40px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 500px;
+  margin-left: 60px;
+  margin-right: 150px;
+  top: 3000px;
+  width: 800px;
+  background-color: whitesmoke;
+  border: 7px solid gold;
+  height: 125px;
+}
+.checkboxesRow{
+  background-color: lightgrey;
+  margin: 15px;
+}
+.lookupBody{
+  position: absolute;
+  top: 128px;
+  width: 70%;
+  left: 32px;
+}
+.checkboxes{
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px;
 }
