@@ -20,7 +20,7 @@ import logo from'./logo_oval_purple.png';
       .then((user) => {
         console.log(user);
         this.setState({ username: user.username });
-      });
+    });
   }
   handleLandingClick() {
     this.setState({ isLandingPage: true, isLookupPage: false, isAboutPage:false});

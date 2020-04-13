@@ -6,8 +6,8 @@ const app = express();
 
 var connection = mysql.createConnection({
     host     : 'chownow.cvbdf448eti1.us-east-1.rds.amazonaws.com',
-    user     : '',
-    password : '',
+    user     : 'admin',
+    password : 'tspchownow',
     port     : '3306'
 });
   
@@ -35,6 +35,23 @@ app.get('/api/query', (req, res) => {
             console.log(error);
             throw error;
         }
+        ret = results[0].solution;
+        console.log('The solution is: ', results[0].solution);
+    });
+
+    res.send({ username: ret });
+});
+
+app.get('/api/recipes', (req, res) => {
+    let ret;
+
+    connection.query('SELECT * FROM recipes', (error, results) => {
+        if (error) {
+            console.log(error);
+            throw error;
+        }
+
+        console.log(results);
         ret = results[0].solution;
         console.log('The solution is: ', results[0].solution);
     });
