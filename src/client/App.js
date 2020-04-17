@@ -9,40 +9,52 @@ import logo from'./logo_oval_purple.png';
     this.state={ username:null,
       isLandingPage:true,
       isLookupPage:false,
-      isAboutPage:false,};
+      isAboutPage:false,
+      isRecipePage:false,  };
     this.handleLandingClick = this.handleLandingClick.bind(this);
     this.handleLookupClick = this.handleLookupClick.bind(this);  
-    this.handleAboutClick = this.handleAboutClick.bind(this); 
+    this.handleAboutClick = this.handleAboutClick.bind(this);
+    this.handleRecipeClick = this.handleRecipeClick.bind(this);
   }
   componentDidMount() {
-    fetch('/api/query')
+    fetch('/api/recipes')
       .then(res => res.json())
       .then((user) => {
-        console.log(user);
+        console.log('r: ', user);
         this.setState({ username: user.username });
       });
   }
+
+
+  /*mock api queries and return fake jsons*/
+
   handleLandingClick() {
-    this.setState({ isLandingPage: true, isLookupPage: false, isAboutPage:false});
+    this.setState({ isLandingPage: true, isLookupPage: false, isAboutPage:false, isRecipePage:false});
   }
   handleLookupClick() {
-    this.setState({isLandingPage: false, isLookupPage: true, isAboutPage:false});
+    this.setState({isLandingPage: false, isLookupPage: true, isAboutPage:false, isRecipePage:false});
   }
   handleAboutClick() {
-    this.setState({isLandingPage: false, isLookupPage: false, isAboutPage:true});
+    this.setState({isLandingPage: false, isLookupPage: false, isAboutPage:true, isRecipePage:false});
+  }
+  handleRecipeClick() {
+    this.setState({isLandingPage: false, isLookupPage: false, isAboutPage:false, isRecipePage:true});
   }
   render() {
     const username = this.state.username;
     const isLandingPage = this.state.isLandingPage;
     const isLookupPage = this.state.isLookupPage;
     const isAboutPage = this.state.isAboutPage;
+    const isRecipePage = this.state.isRecipePage;
     let form;
     if (isLandingPage) {
       form = <LandingPage onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
     } else if (isLookupPage) {
-      form = <LookupPage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
+      form = <LookupPage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick} onRecipeClick={this.handleRecipeClick}/>;
     } else if (isAboutPage) {
       form = <AboutPage   onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
+    } else if (isRecipePage) {
+      form = <RecipePage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
     }
     return (
       <div>
@@ -56,6 +68,7 @@ class LandingPage extends Component {
     return(
       <div>
         <Header/>
+        <div class="headerSpacer"/>
         <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/>
         <Footer/>
       </div>
@@ -76,6 +89,15 @@ class AboutPage extends Component {
         </div>
       </div>
    );
+  }
+}
+class RecipePage extends Component {
+  render() {
+    return(
+      <div>i am recipes
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/> 
+      </div>
+    );
   }
 }
 class Header extends Component {
@@ -120,7 +142,7 @@ class LookupPage extends Component {
     return (
       <div>
         <Header/>
-        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/>
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick} onRecipeClick={this.props.onRecipeClick}/>
         <Footer/>
         <div class="lookupBody">
           <div class="checkboxesRow">
@@ -137,6 +159,7 @@ class LookupPage extends Component {
                 <Checkboxes title="things2"/>
               </span>
           </div>
+          <button onClick={this.props.onRecipeClick}>Get recipe</button>
         </div>
       </div>
     );

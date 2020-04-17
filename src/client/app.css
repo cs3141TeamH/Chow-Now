@@ -36,7 +36,7 @@ body {
   width: 100%;
 }
 .footer{
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   width: 100%;
   height: 32px;
@@ -71,13 +71,15 @@ body {
   margin: 15px;
 }
 .lookupBody{
-  position: absolute;
-  top: 128px;
+  padding-top: 64px;
   width: 70%;
-  left: 32px;
+  padding-left: 32px;
 }
 .checkboxes{
   display: flex;
   justify-content: space-evenly;
   padding: 15px;
+}
+.headerSpacer{
+  top:64px;
 }
