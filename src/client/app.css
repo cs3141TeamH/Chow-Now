@@ -53,6 +53,8 @@ body {
 }
 .aboutText{
   text-align: center;
+  font-family: apple-system;
+  font-size: 13pt;
   right: 50%;
   padding-top: 25px;
   padding-left: 50px;
@@ -79,4 +81,24 @@ body {
   display: flex;
   justify-content: space-evenly;
   padding: 15px;
+}
+.recipePageHeader{
+width: 100%
+}
+.recipePageName{
+padding-top: 40px;
+align-content: center;
+font-family: fantasy;
+}
+.recipeIngredients{
+  padding-top: 20px;
+  border: 7px cadetblue;
+  background-color: lightgray;
+}
+.recipeDirections{
+  padding-top: 20px;
+}
+.recipePageContent{
+  padding-top: 40px;
+  align-content: center;
 }
