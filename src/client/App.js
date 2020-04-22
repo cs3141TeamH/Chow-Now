@@ -6,7 +6,9 @@ import logo from'./logo_oval_purple.png';
  class App extends Component {
   constructor(props) {
     super(props);
-    this.state={ username:null,
+    this.state={ 
+      recipes:[],
+      ingredients:[], 
       isLandingPage:true,
       isLookupPage:false,
       isAboutPage:false,
@@ -19,14 +21,32 @@ import logo from'./logo_oval_purple.png';
   componentDidMount() {
     fetch('/api/recipes')
       .then(res => res.json())
-      .then((user) => {
-        console.log('r: ', user);
-        this.setState({ username: user.username });
+      .then((resp) => {
+          this.setState({ 
+            recipes: Object.keys(resp.result).map(recipe => ({
+                name: resp.result[recipe].name,
+                directions: resp.result[recipe].directions,
+            }))
+          });
+        console.log('Rresult: ', resp.result[0].name); 
+        console.log('RresultAll: ', resp.result);
       });
+
+      fetch('/api/ingredients')
+      .then(res => res.json())
+      .then((ingr) => {
+          this.setState({ 
+            ingredients: Object.keys(ingr.result).map(ingredient => ({
+                name: ingr.result[ingredient].name,
+                type: ingr.result[ingredient].type,
+            }))
+          });
+        console.log('Iresult: ', ingr.result[0].name); 
+        console.log('IresultAll: ', ingr.result);
+      });
+
   }
 
-
-  /*mock api queries and return fake jsons*/
 
   handleLandingClick() {
     this.setState({ isLandingPage: true, isLookupPage: false, isAboutPage:false, isRecipePage:false});
@@ -41,7 +61,23 @@ import logo from'./logo_oval_purple.png';
     this.setState({isLandingPage: false, isLookupPage: false, isAboutPage:false, isRecipePage:true});
   }
   render() {
-    const username = this.state.username;
+    const recipes = this.state.recipes;
+    const ingredients = this.state.ingredients;
+
+    if (!recipes || !(recipes.length>0)) { //block until recipes exist
+      return <div/>
+    }
+    if (!ingredients || !(ingredients.length>0)) {
+      return <div/>
+    }
+
+    console.log('sRVal: ', Object.values(recipes));
+    console.log('sRAll: ', recipes[0].name); //so this doesn't crash
+
+    console.log('sIVal: ', Object.values(ingredients));
+    console.log('sIAll: ', ingredients[0].name);
+
+
     const isLandingPage = this.state.isLandingPage;
     const isLookupPage = this.state.isLookupPage;
     const isAboutPage = this.state.isAboutPage;
@@ -63,12 +99,13 @@ import logo from'./logo_oval_purple.png';
     );
   }
 }
+
 class LandingPage extends Component {
   render() {
     return(
       <div>
         <Header/>
-        <div class="headerSpacer"/>
+        <div className="headerSpacer"/>
         <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/>
         <Footer/>
       </div>
@@ -78,8 +115,8 @@ class LandingPage extends Component {
 class AboutPage extends Component {
   render() {
     return(
-      <div class="logoImage"><img src={logo} alt="this is logo image" />
-        <div class="aboutText">
+      <div className="logoImage"><img src={logo} alt="this is logo image" />
+        <div className="aboutText">
         This web site was created to make finding a recipe to make quick and easy.  
         <span><br /></span>
         <span><br />Created by Team Chow Now: Samantha Richardson, Jonathan Lehto, Austin Braley, Jesse Fischer, Aaron Kettelhut </span>
@@ -103,9 +140,9 @@ class RecipePage extends Component {
 class Header extends Component {
   render() {
     return (
-      <div class = "headContainer">
+      <div className = "headContainer">
         {/* <img src={ReactImage} alt="headerImage" > </img> */}
-        <h1 class="logoText">Chow Now</h1>
+        <h1 className="logoText">Chow Now</h1>
       </div>  
     );
   }
@@ -113,12 +150,12 @@ class Header extends Component {
 class Navigation extends Component {
   render () {
     return (
-      <div class="navContainer">
-        <div class="navHeader">Navigation</div>
-        <div class="navButtons">
-          <button class="navButton" onClick={this.props.onLandClick}>Home</button>
-          <button class="navButton" onClick={this.props.onLookClick}>Find A Recipe</button>
-          <button class="navButton" onClick={this.props.onAboutClick}>About</button>
+      <div className="navContainer">
+        <div className="navHeader">Navigation</div>
+        <div className="navButtons">
+          <button className="navButton" onClick={this.props.onLandClick}>Home</button>
+          <button className="navButton" onClick={this.props.onLookClick}>Find A Recipe</button>
+          <button className="navButton" onClick={this.props.onAboutClick}>About</button>
         </div>
       </div>
     );
@@ -127,8 +164,8 @@ class Navigation extends Component {
 class Footer extends Component{
   render() {
     return (
-      <div class="footer">
-        <span class="footerLinks">
+      <div className="footer">
+        <span className="footerLinks">
           <a href="https://sso.mtu.edu/cas/login?service=https%3A%2F%2Fmtu.instructure.com%2Flogin%2Fcas">
             This goes to canvas login</a>
           <a>This doesn't do anything but I wanted it for spacing</a>
@@ -144,17 +181,17 @@ class LookupPage extends Component {
         <Header/>
         <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick} onRecipeClick={this.props.onRecipeClick}/>
         <Footer/>
-        <div class="lookupBody">
-          <div class="checkboxesRow">
-            <h2 class="navHeader">Include ingredients:</h2>
-              <span class="checkboxes">
+        <div className="lookupBody">
+          <div className="checkboxesRow">
+            <h2 className="navHeader">Include ingredients:</h2>
+              <span className="checkboxes">
                 <Checkboxes title="things1"/>
                 <Checkboxes title="things2"/>
               </span>
           </div>
-          <div class="checkboxesRow">
-            <h2 class="navHeader">Exclude ingredients:</h2>
-              <span class="checkboxes">
+          <div className="checkboxesRow">
+            <h2 className="navHeader">Exclude ingredients:</h2>
+              <span className="checkboxes">
                 <Checkboxes title="things1"/>
                 <Checkboxes title="things2"/>
               </span>
@@ -169,11 +206,13 @@ class Checkboxes extends Component {
   render() {
     return(
     <div>  {this.props.title}
-      <form>
+      <form action = "api/submitRecipe" method = "post">
         <input type="checkbox" id="thing1" name="thing1" value="food1"/>
         <label for="thing1">Thing1</label> <br/>
         <input type="checkbox" id="thing2" name="thing2" value="food2"/>
         <label for="thing2">Thing2</label>
+        
+        <input type="submit" />
       </form>
     </div>
     );

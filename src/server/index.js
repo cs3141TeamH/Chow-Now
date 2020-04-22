@@ -7,8 +7,8 @@ const app = express();
 var connection = mysql.createConnection({
     host     : 'chownow.cvbdf448eti1.us-east-1.rds.amazonaws.com',
     database : 'ChowNow',
-    user     : '',
-    password : '',
+    user     : 'admin',
+    password : 'tspchownow',
     port     : '3306'
 });
   
@@ -53,10 +53,22 @@ app.get('/api/recipes', (req, res) => {
         }
         //console.log('results: ', results.slice(0));
         ret = results.slice(0);
-        console.log('ret: ', ret);
-        res.send({ username: ret });
+        res.send({ result: ret });
     }); 
-    
+});
+
+app.get('/api/ingredients', (req, res) => {
+    let ret =[];
+
+    connection.query('SELECT * FROM ingredients', (error, results) => {
+        if (error) {
+            console.log(error);
+            throw error;
+        }
+        //console.log('results: ', results.slice(0));
+        ret = results.slice(0);
+        res.send({ result: ret });
+    }); 
 });
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
