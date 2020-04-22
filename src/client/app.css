@@ -82,6 +82,7 @@ body {
   justify-content: space-evenly;
   padding: 15px;
 }
+<<<<<<< Updated upstream
 .recipePageHeader{
 width: 100%
 }
@@ -101,4 +102,53 @@ font-family: fantasy;
 .recipePageContent{
   padding-top: 40px;
   align-content: center;
+=======
+.headerSpacer{
+  top:64px;
+}
+.recipePageHeader{
+  top: 100px;
+  width: 100%;
+  text-align: center;
+}
+.recipePageName{
+  top: 100px;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  align-content: center;
+  font-family: fantasy;
+  font-size: 24pt;
+  text-align: center;
+}
+.recipeIngredients{
+  top: 1000px;
+  height: 250px;
+  padding-top: 20px;
+  padding-left: 35px;
+  padding-right: 150px;
+  border: 7px cadetblue;
+  background-color: lightgray;
+  text-align: left;
+  outline-style: dotted;
+}
+.recipeDirections{
+  top: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-family: fantasy;
+  font-size: 24pt;
+}
+.recipePageContent{
+  top: 100px;
+  height: 500px;
+  background-color: lime;
+  padding-top: 40px;
+  padding-left: 35px;
+  padding-right: 35px;
+  text-align: left;
+  list-style: decimal;
+  outline-style: solid;
+  outline-color: magenta;
+>>>>>>> Stashed changes
 }

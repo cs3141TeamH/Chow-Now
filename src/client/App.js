@@ -78,6 +78,22 @@ class AboutPage extends Component {
    );
   }
 }
+<<<<<<< Updated upstream
+=======
+class RecipePage extends Component {
+  render() {
+    return(
+      <div className="recipePageHeader">
+      <div className="recipePageName">Recipe Name</div>
+      <div className="recipeIngredients">ingredients al;skjdf;lakwjeopiqwanasdfasdfasdffjasdpojadpfbaweopfawoefapowejfbajpwebfoapwebfopawebfauwoefpoawebfoawebfpoawebfopawebfopawuefoawe fopawebfaowe jfnp</div>
+      <div className="recipeDirections">Directions</div>
+      <div className="recipePageContent">Stuff that goes inside</div>
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/> 
+      </div>
+    );
+  }
+}
+>>>>>>> Stashed changes
 class Header extends Component {
   render() {
     return (
