@@ -86,7 +86,7 @@ import logo from'./logo_oval_purple.png';
     if (isLandingPage) {
       form = <LandingPage onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
     } else if (isLookupPage) {
-      form = <LookupPage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick} onRecipeClick={this.handleRecipeClick}/>;
+      form = <LookupPage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick} onRecipeClick={this.handleRecipeClick} ingrs={Object.values(ingredients)}/>;
     } else if (isAboutPage) {
       form = <AboutPage   onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
     } else if (isRecipePage) {
@@ -176,6 +176,13 @@ class Footer extends Component{
 }
 class LookupPage extends Component {
   render () {
+    var checkboxColumns = [];
+     //populate array of all checkbox column+titles
+    checkboxColumns = this.props.ingrs.map(iter => (
+      <Checkboxes title={iter.type} key={iter.type} ingrs={this.props.ingrs}/>
+    ));
+    
+
     return (
       <div>
         <Header/>
@@ -185,18 +192,16 @@ class LookupPage extends Component {
           <div className="checkboxesRow">
             <h2 className="navHeader">Include ingredients:</h2>
               <span className="checkboxes">
-                <Checkboxes title="things1"/>
-                <Checkboxes title="things2"/>
+                {checkboxColumns}
               </span>
           </div>
           <div className="checkboxesRow">
             <h2 className="navHeader">Exclude ingredients:</h2>
               <span className="checkboxes">
-                <Checkboxes title="things1"/>
-                <Checkboxes title="things2"/>
+                {checkboxColumns}
               </span>
           </div>
-          <button onClick={this.props.onRecipeClick}>Get recipe</button>
+          <button onClick={this.props.onRecipeClick}>Get recipe</button>  {/*~~~~~~~~~~~~~~~~~~~~~~~JON I THINK THIS MIGHT BE FORM SUBMIT BUTTON~~~~~~~~~~~~~~~~~~*/}
         </div>
       </div>
     );
@@ -204,14 +209,22 @@ class LookupPage extends Component {
 }
 class Checkboxes extends Component {
   render() {
+    var ingrNames=[];
+    for (var i=0; i<this.props.ingrs.length; i++) {
+      if (this.props.ingrs[i].type == this.props.title){ //this should probably be done as get_ingredients_from_type
+        ingrNames.push(
+          <div key={this.props.ingrs[i].name}>
+            <input type="checkbox" id={this.props.ingrs[i].name} name={this.props.ingrs[i].name} value={this.props.ingrs[i].name}/>
+            <label htmlFor={this.props.ingrs[i].name}>{this.props.ingrs[i].name}</label>
+          </div>
+        );
+      }
+    }
+
     return(
     <div>  {this.props.title}
       <form action = "api/submitRecipe" method = "post">
-        <input type="checkbox" id="thing1" name="thing1" value="food1"/>
-        <label for="thing1">Thing1</label> <br/>
-        <input type="checkbox" id="thing2" name="thing2" value="food2"/>
-        <label for="thing2">Thing2</label>
-        
+        {ingrNames}
         <input type="submit" />
       </form>
     </div>
