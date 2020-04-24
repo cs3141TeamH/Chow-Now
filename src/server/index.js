@@ -71,4 +71,20 @@ app.get('/api/ingredients', (req, res) => {
     }); 
 });
 
+app.post('/api/submitRecipe', (req, res) => {
+    let ret =[];
+    console.log(req.param());
+    
+/*
+    connection.query('SELECT * FROM ingredients', (error, results) => {
+        if (error) {
+            console.log(error);
+            throw error;
+        }
+        //console.log('results: ', results.slice(0));
+        ret = results.slice(0);
+        res.send({ result: ret });
+    }); */
+});
+
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));

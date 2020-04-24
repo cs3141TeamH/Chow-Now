@@ -190,10 +190,13 @@ class LookupPage extends Component {
         <Footer/>
         <div className="lookupBody">
           <div className="checkboxesRow">
+          <form action = "/api/submitRecipe" method = "post">
             <h2 className="navHeader">Include ingredients:</h2>
               <span className="checkboxes">
                 {checkboxColumns}
               </span>
+              <input type='submit' value='submit' />
+              </form>
           </div>
           <div className="checkboxesRow">
             <h2 className="navHeader">Exclude ingredients:</h2>
@@ -222,11 +225,9 @@ class Checkboxes extends Component {
     }
 
     return(
-    <div>  {this.props.title}
-      <form action = "api/submitRecipe" method = "post">
+    <div>
+      {this.props.title}
         {ingrNames}
-        <input type="submit" />
-      </form>
     </div>
     );
   }
