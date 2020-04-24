@@ -90,7 +90,7 @@ import logo from'./logo_oval_purple.png';
     } else if (isAboutPage) {
       form = <AboutPage   onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
     } else if (isRecipePage) {
-      form = <RecipePage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick}/>;
+      form = <RecipePage  onLandClick={this.handleLandingClick} onLookClick={this.handleLookupClick} onAboutClick={this.handleAboutClick} theRecipes={Object.values(recipes)} ingrs={Object.values(ingredients)}/>;
     }
     return (
       <div>
@@ -126,20 +126,6 @@ class AboutPage extends Component {
         </div>
       </div>
    );
-  }
-}
-class RecipePage extends Component {
-  render() {
-    return(
-      <div className="recipePageHeader">
-      <div className="recipePageName">Recipe Name</div>
-      <div className="recipeIngredients">ingredients al;skjdf;webfaowe jfnp</div>
-      <div className="recipeDirections">Directions</div>
-      <div className="recipePageContent">Stuff that goes inside</div>
-        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/> 
-      </div>
-      
-    );
   }
 }
 class Header extends Component {
@@ -212,6 +198,7 @@ class LookupPage extends Component {
     );
   }
 }
+
 class Checkboxes extends Component {
   render() {
     var ingrNames=[];
@@ -233,6 +220,61 @@ class Checkboxes extends Component {
         <input type="submit" />
       </form>
     </div>
+    );
+  }
+}
+class RecipePage extends Component {
+  
+  componentDidMount() {
+    fetch('/api/recipes')
+      .then(results => {
+        return results.json();
+      })
+      .then((data) => {
+          let theRecipes = data.results.map((recipe) =>{
+            return(
+              <div key = {recipe.results}>
+                <h1 re = {recipe.recipes.name} />
+              </div>
+            )
+          })
+          this.setState({theRecipes: theRecipes});
+          console.log("state", this.state.theRecipes);
+        })
+
+        fetch('/api/ingredients')
+      .then(results => {
+        return results.json();
+      })
+      .then((data) => {
+          let ingrs = data.results.map((ingredient) =>{
+            return(
+              <div key = {ingredient.results}>
+                <h1 re = {ingredient.ingredients.name} />
+              </div>
+            )
+          })
+          this.setState({ingrs: ingrs});
+          console.log("state", this.state.ingrs);
+        })
+    }
+
+  render() {
+  
+    var recipeName = this.props.theRecipes[0].name;
+    /*var recipeIngredients = this.props.theRecipes[0].ingredients;*/
+    var recipeDirections = this.props.theRecipes[0].directions;
+    var recipeIngredients = this.props.ingrs[0].name;
+
+    return(
+      <div className="recipePageHeader">
+      <div className="recipePageName">{recipeName}</div>
+      <div className="recipeIngredients"><ul>{ recipeIngredients }</ul></div>
+      <div className="recipeDirections">Directions</div>
+      <div className="recipePageContent">{recipeDirections}</div>
+        <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/> 
+      </div>
+      
     );
   }
 }
