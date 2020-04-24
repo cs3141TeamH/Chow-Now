@@ -181,16 +181,22 @@ class LookupPage extends Component {
         <Footer/>
         <div className="lookupBody">
           <div className="checkboxesRow">
+          <form action = "/api/submitRecipe" method = "post">
             <h2 className="navHeader">Include ingredients:</h2>
               <span className="checkboxes">
                 {checkboxColumns}
               </span>
+              <input type='submit' value='submit' />
+              </form>
           </div>
           <div className="checkboxesRow">
+          <form action = "/api/submitRecipe" method = "post">
             <h2 className="navHeader">Exclude ingredients:</h2>
               <span className="checkboxes">
                 {checkboxColumns}
               </span>
+              <input type='submit' value='submit' />
+              </form>
           </div>
           <button onClick={this.props.onRecipeClick}>Get recipe</button>  {/*~~~~~~~~~~~~~~~~~~~~~~~JON I THINK THIS MIGHT BE FORM SUBMIT BUTTON~~~~~~~~~~~~~~~~~~*/}
         </div>
@@ -214,11 +220,9 @@ class Checkboxes extends Component {
     }
 
     return(
-    <div>  {this.props.title}
-      <form action = "api/submitRecipe" method = "post">
+    <div>
+      {this.props.title}
         {ingrNames}
-        <input type="submit" />
-      </form>
     </div>
     );
   }
