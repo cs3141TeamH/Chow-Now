@@ -83,3 +83,53 @@ body {
 .headerSpacer{
   top:64px;
 }
+.recipePageHeader{
+  top: 100px;
+  width: 100%;
+  text-align: center;
+}
+.recipePageName{
+  top: 100px;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  align-content: center;
+  font-family: fantasy;
+  font-size: 24pt;
+  text-align: center;
+}
+.recipeIngredients{
+  top: 1000px;
+  width: 70%;
+  height: 250px;
+  margin-left: 2%;
+  margin-right: 10%;
+  padding-top: 20px;
+  padding-left: 35px;
+  padding-right: 150px;
+  background-color: lightgray;
+  text-align: left;
+  outline-style: solid;
+  outline-color: lightblue;
+}
+.recipeDirections{
+  top: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-family: fantasy;
+  font-size: 24pt;
+}
+.recipePageContent{
+  top: 100px;
+  width: 90%;
+  margin-left: 2%;
+  height: 400px;
+  background-color: palegoldenrod;
+  padding-top: 40px;
+  padding-left: 35px;
+  padding-right: 35px;
+  text-align: left;
+  list-style: decimal;
+  outline-style: solid;
+  outline-color: lightblue;
+}
