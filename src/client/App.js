@@ -119,7 +119,7 @@ class AboutPage extends Component {
         <div className="aboutText">
         This web site was created to make finding a recipe to make quick and easy.  
         <span><br /></span>
-        <span><br />Created by Team Chow Now: Samantha Richardson, Jonathan Lehto, Austin Braley, Jesse Fischer, Aaron Kettelhut </span>
+        <span><br />Created by Team Chow Now: Samantha Richardson, Jonathan Lehto, Austin Braley, Jesse Fischer</span>
         <span><br /></span>
         <span><br /><span>If you would like to support the team, send money to paypal.me/itakesingles</span></span>
         <Navigation onLandClick={this.props.onLandClick} onLookClick={this.props.onLookClick} onAboutClick={this.props.onAboutClick}/> 
